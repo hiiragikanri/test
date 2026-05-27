@@ -12,7 +12,6 @@ const els = {
   publicWarning: document.querySelector("#publicWarning"),
   initializeBtn: document.querySelector("#initializeBtn"),
   accountBtn: document.querySelector("#accountBtn"),
-  loginBtn: document.querySelector("#loginBtn"),
   deviceLoginBtn: document.querySelector("#deviceLoginBtn"),
   logoutBtn: document.querySelector("#logoutBtn"),
   threadBtn: document.querySelector("#threadBtn"),
@@ -283,7 +282,6 @@ function showPublicHostWarning() {
 
 els.initializeBtn.addEventListener("click", () => send({ type: "initialize" }));
 els.accountBtn.addEventListener("click", () => send({ type: "account-read" }));
-els.loginBtn.addEventListener("click", () => send({ type: "login-start", loginType: "chatgpt" }));
 els.deviceLoginBtn.addEventListener("click", () => send({ type: "login-start", loginType: "chatgptDeviceCode" }));
 els.logoutBtn.addEventListener("click", () => send({ type: "logout" }));
 els.threadBtn.addEventListener("click", () => {

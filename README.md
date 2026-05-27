@@ -33,6 +33,11 @@ Open http://localhost:3000.
 5. Click `New Thread`.
 6. Send a prompt.
 
+Do not use the browser OAuth callback URL if you see one like
+`http://localhost:1455/auth/callback?...`. That flow is for a local Codex
+callback listener and does not work from the Render-hosted page. Use
+`Device Login` instead.
+
 ## Frontend HMR
 
 While `npm.cmd run dev` is running, files under `public/` are watched.
