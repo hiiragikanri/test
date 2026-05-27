@@ -1,0 +1,20 @@
+{
+  "name": "codex_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "codex:version": "codex --version"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@openai/codex": "^0.134.0",
+    "express": "^5.2.1",
+    "ws": "^8.21.0"
+  }
+}

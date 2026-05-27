@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Codex Local Web Demo</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="pane chat-pane">
+        <header class="topbar">
+          <div>
+            <h1>Codex Local Web Demo</h1>
+            <p id="status">Connecting</p>
+            <p id="logPath" class="log-path"></p>
+          </div>
+          <div class="actions">
+            <button id="initializeBtn" type="button">Initialize</button>
+            <button id="accountBtn" type="button">Account</button>
+            <button id="loginBtn" type="button">Browser Login</button>
+            <button id="deviceLoginBtn" type="button">Device Login</button>
+            <button id="logoutBtn" type="button">Reset Auth</button>
+          </div>
+        </header>
+
+        <div class="settings">
+          <label>
+            model
+            <input id="modelInput" placeholder="empty = Codex default" />
+          </label>
+          <label>
+            sandbox
+            <select id="sandboxSelect">
+              <option value="read-only">read-only</option>
+              <option value="workspace-write">workspace-write</option>
+              <option value="danger-full-access">danger-full-access</option>
+            </select>
+          </label>
+          <label>
+            approval
+            <select id="approvalSelect">
+            <option value="never">never</option>
+              <option value="on-request">on-request</option>
+              <option value="on-failure">on-failure</option>
+              <option value="untrusted">untrusted</option>
+            </select>
+          </label>
+          <label class="wide">
+            cwd
+            <input id="cwdInput" />
+          </label>
+          <button id="threadBtn" type="button">New Thread</button>
+        </div>
+
+        <div id="authBox" class="auth hidden">
+          <span id="authLabel">Login URL:</span>
+          <a id="authLink" href="#" target="_blank" rel="noreferrer">Open</a>
+          <code id="authCode" class="hidden"></code>
+        </div>
+
+        <div id="messages" class="messages"></div>
+
+        <form id="turnForm" class="composer">
+          <textarea id="promptInput" rows="3" placeholder="Ask Codex something"></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </section>
+
+      <aside class="pane event-pane">
+        <div class="event-head">
+          <h2>Events</h2>
+          <button id="clearEventsBtn" type="button">clear</button>
+        </div>
+        <pre id="events"></pre>
+      </aside>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
