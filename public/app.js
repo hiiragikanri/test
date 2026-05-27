@@ -69,6 +69,26 @@ function summarizeStderr(text) {
   }
 }
 
+function isNoisyStderr(text) {
+  return text
+    .trim()
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .every((line) => {
+      try {
+        const parsed = JSON.parse(line);
+        const message = parsed.fields?.message || parsed.message || "";
+        return (
+          message.includes("ignoring interface.icon_small") ||
+          message.includes("ignoring interface.icon_large") ||
+          message.includes("Failed to create shell snapshot for powershell")
+        );
+      } catch {
+        return false;
+      }
+    });
+}
+
 function addMessage(role, text = "") {
   const node = document.createElement("div");
   node.className = `message ${role}`;
@@ -210,7 +230,8 @@ function connect() {
   state.ws.addEventListener("error", () => setStatus("WebSocket error"));
   state.ws.addEventListener("message", (event) => {
     const payload = JSON.parse(event.data);
-    logEvent(payload);
+    const noisyStderr = payload.type === "stderr" && isNoisyStderr(payload.text);
+    if (!noisyStderr) logEvent(payload);
 
     if (payload.type === "ready") {
       els.cwdInput.value = payload.cwd;
@@ -220,7 +241,7 @@ function connect() {
       handleRpcResult(payload);
     } else if (payload.type === "codex-message") {
       handleCodexMessage(payload.message);
-    } else if (payload.type === "stderr") {
+    } else if (payload.type === "stderr" && !noisyStderr) {
       setStatus(summarizeStderr(payload.text));
     } else if (payload.type === "process-exit") {
       setStatus(`Codex process exited: ${payload.code ?? payload.signal}`);
