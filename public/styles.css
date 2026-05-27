@@ -124,6 +124,14 @@ h2 {
   overflow-wrap: anywhere;
 }
 
+.public-warning {
+  border-left: 3px solid #b45309;
+  color: #7c2d12;
+  background: #fff7ed;
+  margin-top: 8px;
+  padding: 6px 8px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

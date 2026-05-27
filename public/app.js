@@ -9,6 +9,7 @@ const state = {
 const els = {
   status: document.querySelector("#status"),
   logPath: document.querySelector("#logPath"),
+  publicWarning: document.querySelector("#publicWarning"),
   initializeBtn: document.querySelector("#initializeBtn"),
   accountBtn: document.querySelector("#accountBtn"),
   loginBtn: document.querySelector("#loginBtn"),
@@ -273,6 +274,13 @@ function connectHmr() {
   });
 }
 
+function showPublicHostWarning() {
+  const localHosts = new Set(["localhost", "127.0.0.1", "::1"]);
+  if (!localHosts.has(location.hostname)) {
+    els.publicWarning.classList.remove("hidden");
+  }
+}
+
 els.initializeBtn.addEventListener("click", () => send({ type: "initialize" }));
 els.accountBtn.addEventListener("click", () => send({ type: "account-read" }));
 els.loginBtn.addEventListener("click", () => send({ type: "login-start", loginType: "chatgpt" }));
@@ -316,3 +324,4 @@ els.clearEventsBtn.addEventListener("click", () => {
 
 connect();
 connectHmr();
+showPublicHostWarning();

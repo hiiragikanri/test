@@ -1,9 +1,21 @@
 # Codex Local Web Demo
 
-This is a localhost-only prototype that connects a browser UI to `codex app-server`
-through a small Node.js WebSocket bridge.
+This is a small Node.js web UI that connects a browser to `codex app-server`
+through a WebSocket bridge.
 
-## Run
+Live test URL:
+
+https://test-hy6s.onrender.com/
+
+## Important Security Note
+
+This app uses the Codex authentication stored on the machine/server that runs
+`codex app-server`. On a public host, visitors can use that server-side Codex
+account unless you add your own access control and user isolation.
+
+Use this as a trusted prototype, not as an open public chat service.
+
+## Run Locally
 
 ```powershell
 npm.cmd install
@@ -12,25 +24,26 @@ npm.cmd run dev
 
 Open http://localhost:3000.
 
+## Flow
+
+1. Click `Reset Auth` if the existing token is stale.
+2. Click `Device Login`.
+3. Enter the displayed code on the displayed auth page.
+4. Wait for login completion.
+5. Click `New Thread`.
+6. Send a prompt.
+
 ## Frontend HMR
 
 While `npm.cmd run dev` is running, files under `public/` are watched.
 CSS edits are swapped into the page without a full refresh. HTML and JS edits
 trigger a browser reload.
 
-## Flow
-
-1. Click `初期化`.
-2. Click `アカウント確認`.
-3. If needed, click `ChatGPTログイン` and open the displayed auth URL.
-4. Click `新規スレッド`.
-5. Send a prompt.
-
 ## Environment
 
 - `PORT`: web server port, default `3000`.
 - `CODEX_WORKSPACE`: working directory passed to Codex, default this project.
-- `CODEX_COMMAND`: Codex executable, default `codex.cmd` on Windows.
+- `CODEX_COMMAND`: Codex executable, default `codex.cmd` on Windows and `codex` elsewhere.
 
 ## Logs
 
@@ -40,5 +53,3 @@ The UI also shows the active log path at the top of the page.
 The log includes UI messages, JSON-RPC requests/responses, Codex stderr, process
 errors, and exit codes. Email addresses, tokens, secrets, and auth/device codes
 are redacted before being written.
-
-This is for local experiments. Do not expose it directly to the public internet.
